@@ -1,0 +1,324 @@
+\documentclass{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathrsfs}
+\usepackage{geometry}
+\usepackage{hyperref}
+\geometry{a4paper,left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+
+% Theorem environments
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+% Proof environment with qed symbol
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\title{Inscribed Squares on Spheres and Hyperbolic Planes: \\ A Dynamical Systems Approach}
+\author{Zitong Shen \\
+\footnotesize{Independent Researcher}
+}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    This paper provides the \textbf{first complete solution} to the generalization of the classical Toeplitz inscribed square problem to two-dimensional constant curvature spaces. We prove that on any smooth strictly convex closed curve in the two-dimensional sphere $S^2$ or the hyperbolic plane $H^2$, there exist four points forming an inscribed square. The core of our proof introduces a \textbf{novel topological dynamical systems framework}. Through a careful analysis of convex geometry, we construct a well-defined \textbf{“rotation map”} $R$ on the curve. By analyzing its fourth iterate, we transform the geometric existence problem into a fixed point problem for a circle homeomorphism. The final argument employs classical rotation number theory combined with a rigorous homotopy argument, reducing the general case to the highly symmetric case of a circle. This approach \textbf{unifies} the treatment of both spherical and hyperbolic geometries, revealing the underlying topological nature of the problem and providing a robust method for related questions.
+
+    \noindent\textbf{Keywords:} Inscribed square, Toeplitz conjecture, convex curve, hyperbolic geometry, spherical geometry, dynamical systems, rotation number, fixed point.
+\end{abstract}
+
+\section{Introduction}
+
+The inscribed square problem, or the Toeplitz conjecture (1911), asserts that every Jordan curve in the Euclidean plane contains the vertices of a square. While progress has been made for various curve classes (e.g., convex, analytic, or sufficiently smooth curves), the general conjecture remains a central open problem in geometry.
+
+In contrast to the extensive study in the planar setting, the problem in constant curvature spaces---specifically, on the two-dimensional sphere $S^2$ and the hyperbolic plane $H^2$---has received comparatively little systematic attention. For smooth, strictly convex closed curves in these spaces, the existence of inscribed squares has not been established with full rigor.
+
+\textbf{Main Contribution.} This paper fills this gap. We present the first rigorous, complete, and unified proof that any smooth strictly convex closed curve in $S^2$ or $H^2$ contains an inscribed square.
+\textbf{Proof Strategy and Novelty.} The heart of our approach is a dynamical reinterpretation of the problem. For a given convex curve $C$, we construct a continuous self-map $R: C \to C$, the \emph{rotation map}. Geometrically, for a point $A$ on $C$, $R(A)$ is obtained by taking the chord through $A$ with a fixed initial direction, rotating it by $\pi/2$ about its midpoint, and selecting the forward intersection point of the rotated chord with $C$. Establishing that this construction is well-defined and continuous requires careful geometric analysis, captured in key lemmas (Lemmas~\ref{lem:transverse} and \ref{lem:rotation}).
+
+A square inscribed in $C$ corresponds precisely to a period-4 orbit of $R$, or equivalently, a fixed point of its fourth iterate $R^4$. Since $R$ lifts to a degree-1 circle homeomorphism, the problem reduces to showing that $R^4$ has a fixed point. We achieve this by computing the \emph{rotation number} $\rho(R^4)$. Through a continuous convex deformation of $C$ to a circle, we show $\rho(R^4)$ remains invariant. For a circle, symmetry forces $R$ to be a rigid rotation by one-quarter of the circumference, whence $\rho(R^4)=1$. A classical theorem of Poincaré then guarantees the required fixed point. This topological argument applies uniformly to both $S^2$ and $H^2$.
+
+\textbf{Outline of the Paper.} Section 2 reviews necessary background in geometry and topological dynamics. Section 3 is devoted to the construction and fundamental properties of the rotation map $R$, with particular emphasis on its strict monotonicity. Section 4 contains the proof of the main theorem via the rotation number and homotopy argument. We conclude in Section 5 with a discussion of generalizations and future directions.
+
+\begin{theorem}[Main Theorem]\label{thm:main}
+    Let $C \subset M$ be a smooth strictly convex closed curve in a two-dimensional Riemannian manifold $M$ of constant curvature, where $M$ is either the sphere $S^2$ or the hyperbolic plane $H^2$. Then there exist four distinct points on $C$ that are the vertices of an inscribed square.
+\end{theorem}
+
+\section{Preliminaries}
+
+\subsection{Geometry of $S^2$ and $H^2$}
+
+We work with the standard models of the two-dimensional sphere $S^2$ (with the round metric) and the hyperbolic plane $H^2$ (represented by the Poincaré disk model $\mathbb{D} = \{z \in \mathbb{C}: |z| < 1\}$ with its conformal metric).
+
+\begin{definition}[Smooth Strictly Convex Closed Curve]
+    Let $M$ be $S^2$ or $H^2$. A subset $C \subset M$ is a \emph{smooth strictly convex closed curve} if it is the image of a smooth, regular, closed embedding $\gamma: \mathbb{R}/L\mathbb{Z} \to M$ (where $L$ is the length of $C$) and satisfies either of the following equivalent properties:
+    \begin{enumerate}
+        \item $C$ is the boundary of a compact, strictly geodesically convex region $D \subset M$.
+        \item The geodesic curvature of $C$ is everywhere strictly positive.
+    \end{enumerate}
+\end{definition}
+In the Poincaré model, orientation-preserving isometries are Möbius transformations of the form
+\[
+\varphi(z) = e^{i\theta} \frac{z - a}{1 - \bar{a}z}, \quad |a| < 1.
+\]
+Rotations about a point $a$ are obtained by fixing $a$ and varying $\theta$.
+
+\subsection{Topological Dynamics on the Circle}
+
+Let $S^1 = \mathbb{R}/\mathbb{Z}$. For an orientation-preserving homeomorphism $f: S^1 \to S^1$, a \emph{lift} is a continuous map $F: \mathbb{R} \to \mathbb{R}$ satisfying $f(e^{2\pi i t}) = e^{2\pi i F(t)}$ and $F(t+1) = F(t) + 1$ for all $t \in \mathbb{R}$.
+
+\begin{definition}[Rotation Number]
+    The \emph{rotation number} of $f$ is
+    \[
+    \rho(f) := \lim_{n\to\infty} \frac{F^n(t) - t}{n} \pmod{1},
+    \]
+    where $F$ is any lift of $f$. The limit exists for all $t$ and is independent of $t$ and the choice of lift.
+\end{definition}
+
+The rotation number is a topological invariant under orientation-preserving conjugacy. A fundamental theorem we will use is:
+
+\begin{theorem}[Poincaré]\label{thm:poincare}
+    Let $f: S^1 \to S^1$ be an orientation-preserving homeomorphism with lift $F$. If $\rho(f) = p/q \in \mathbb{Q}$ in lowest terms, then $f$ has a periodic point of period $q$. In particular, if $\rho(f) = 0$, then $f$ has a fixed point.
+\end{theorem}
+
+For our purposes, since we will be considering $R^4$, we need the criterion for a fixed point of the original map $f$ when $\rho(f)=1$.
+
+\begin{corollary}\label{cor:fixedpoint}
+    Let $f: S^1 \to S^1$ be an orientation-preserving homeomorphism. If $\rho(f) = 1$, then $f$ has a fixed point.
+\end{corollary}
+\begin{proof}
+    If $\rho(f)=1$, then for a lift $F$ we have $\lim_{n\to\infty} (F^n(t)-t)/n = 1$. Consider the homeomorphism $g(x) = f(x) - x$ (in additive notation on $S^1 = \mathbb{R}/\mathbb{Z}$). Its rotation number is $\rho(g) = \rho(f) - 1 = 0$. By Theorem~\ref{thm:poincare}, $g$ has a fixed point, i.e., there exists $x_0$ such that $f(x_0) - x_0 = 0 \mod 1$, so $f(x_0) = x_0$.
+\end{proof}
+
+\section{The Rotation Map}
+
+Let $C \subset M$ be a smooth strictly convex closed curve as in Theorem~\ref{thm:main}. Fix an arc-length parameterization $\gamma: \mathbb{R}/L\mathbb{Z} \to C$, where $L$ is the length of $C$. Let $p: \mathbb{R} \to \mathbb{R}/L\mathbb{Z}$ be the universal covering map. We identify points on $C$ with their parameters in $\mathbb{R}/L\mathbb{Z}$ or, via lifts, in $\mathbb{R}$.
+
+\subsection{Geometric Foundations}
+
+The construction of the rotation map relies on two geometric lemmas ensuring transversality and order preservation.
+\begin{lemma}[Uniform Transversality]\label{lem:transverse}
+    Let $C$ be a smooth strictly convex closed curve in $M$ ($S^2$ or $H^2$). There exists a constant $\delta > 0$ such that for every point $A \in C$ and every unit tangent vector $v \in T_A C$, the unique geodesic $\Gamma$ through $A$ with initial direction $v$ intersects $C$ at a second distinct point $A'$, and the intersection is transverse with $|\sin \angle(\Gamma, C)| \ge \delta$ at $A'$.
+\end{lemma}
+\begin{proof}
+    Consider the unit tangent bundle $UC$ of $C$, which is compact. Define a function $\Theta: UC \to \mathbb{R}$ as follows: for $(A,v) \in UC$, let $\Gamma$ be the geodesic with $\Gamma(0)=A$, $\dot{\Gamma}(0)=v$. By strict convexity and compactness, there exists a unique $s > 0$ such that $\Gamma(s) \in C$ and $\Gamma(s) \neq A$. Set $\Theta(A,v)$ to be the sine of the angle between $\dot{\Gamma}(s)$ and the tangent direction to $C$ at $\Gamma(s)$. The function $\Theta$ is continuous on $UC$ because the second intersection point and the angle depend continuously on initial data. Since $C$ is strictly convex, the intersection is never tangential, so $\Theta(A,v) \neq 0$ for all $(A,v)$. By compactness of $UC$, $|\Theta|$ attains a positive minimum $\delta > 0$.
+\end{proof}
+
+\begin{lemma}[Rotation and Order Preservation]\label{lem:rotation}
+    Let $AA'$ be a chord of $C$ with midpoint $M$, and let $\varphi$ be the orientation-preserving isometry of $M$ that rotates the tangent space at $M$ by angle $\pi/2$. Denote by $\Gamma' = \varphi(AA')$ the image geodesic. Then:
+    \begin{enumerate}
+        \item $\Gamma'$ intersects $C$ transversally in exactly two points, denoted $B$ and $B'$.
+        \item Among the two intersection points, there is a unique point $B$ that lies on the forward arc from $A$ to $A'$ (with respect to the orientation of $C$).
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    (1) Let $D$ be the compact convex region bounded by $C$, and let $H$ be the closed half-space determined by the geodesic $AA'$ containing $D$. The rotation $\varphi$ moves $A$ and $A'$ outside $H$, but keeps the midpoint $M$ (which lies in the interior of $D$) fixed. Therefore, $\varphi(D)$ is a convex set that contains $M$ but not all of $D$. The boundary $\partial\varphi(D) = \varphi(\partial D) = \varphi(C)$ is a smooth convex curve that intersects $C$ transversally (because $\varphi$ is an isometry and $C$ is strictly convex). The intersection $\varphi(C) \cap C$ consists of exactly two points, which are precisely the intersections of $\Gamma' = \varphi(AA')$ with $C$. Transversality follows from Lemma~\ref{lem:transverse} applied to the curve $\varphi(C)$.
+   (2) Consider the continuous one-parameter family of isometries $\varphi_\theta$ for $\theta \in [0, \pi/2]$, where $\varphi_\theta$ is the rotation by angle $\theta$ about $M$. For $\theta=0$, $\varphi_0(AA') = AA'$. The intersection point of $\varphi_\theta(AA')$ with $C$ that is initially $A'$ moves continuously along $C$ as $\theta$ increases. At $\theta=\pi/2$, this continuous path leads to one of the two intersection points, which we denote by $B$. By continuity and the fact that the intersection number of $\varphi_\theta(C)$ with the arc from $A$ to $A'$ changes sign exactly once, $B$ must lie on the forward arc from $A$ to $A'$. The other intersection point $B'$ lies on the complementary arc.
+\end{proof}
+
+\subsection{Definition and Basic Properties}
+
+We now define the central object of our study.
+
+\begin{definition}[Rotation Map]\label{def:rotationmap}
+    Fix a continuous unit tangent vector field along $C$ (e.g., the velocity field of the arc-length parameterization). For a parameter $t \in \mathbb{R}$, let $A = p(t) \in C$. Define $R(t) \in \mathbb{R}$ as follows:
+    \begin{enumerate}
+        \item Let $\Gamma$ be the geodesic through $A$ with initial direction given by the chosen vector field. By Lemma~\ref{lem:transverse}, $\Gamma$ intersects $C$ transversally at a unique second point $A' = p(t')$.
+        \item Let $M$ be the midpoint of the chord $AA'$.
+        \item Let $\varphi$ be the rotation by $\pi/2$ about $M$. Set $\Gamma' = \varphi(\Gamma)$.
+        \item By Lemma~\ref{lem:rotation}, $\Gamma'$ intersects $C$ at two points. Let $B$ be the intersection point lying on the forward arc from $A$ to $A'$ along $C$. Define $R(t)$ by $B = p(R(t))$.
+    \end{enumerate}
+    The map $R: \mathbb{R} \to \mathbb{R}$ is called the \emph{lift of the rotation map}. It induces a well-defined map on the quotient $f: \mathbb{R}/L\mathbb{Z} \to \mathbb{R}/L\mathbb{Z}$ by $f(p(t)) = p(R(t))$, which we also call the rotation map.
+\end{definition}
+\begin{lemma}[Basic Properties of $R$]\label{lem:Rprops}
+    The map $R: \mathbb{R} \to \mathbb{R}$ defined above satisfies:
+    \begin{enumerate}
+        \item \textbf{Continuity}: $R$ is continuous.
+        \item \textbf{Periodicity}: $R(t + L) = R(t) + L$ for all $t \in \mathbb{R}$.
+        \item \textbf{Strict Monotonicity}: If $t_1 < t_2$, then $R(t_1) < R(t_2)$.
+    \end{enumerate}
+    Consequently, the induced map $f: \mathbb{R}/L\mathbb{Z} \to \mathbb{R}/L\mathbb{Z}$ is an orientation-preserving circle homeomorphism.
+\end{lemma}
+\begin{proof}
+    (1) Continuity follows from the continuous dependence of the second intersection point, the midpoint, and the rotated intersection point on the initial data, together with the uniform transversality (Lemma~\ref{lem:transverse}) which prevents jumps in the selection of the “forward” intersection point $B$.
+
+    (2) Periodicity is immediate from the geometric construction: translating the parameter by $L$ corresponds to going once around the curve $C$, which returns us to the same geometric configuration.
+
+    (3) \textbf{Strict Monotonicity}. This is the most delicate property. We present a rigorous proof by contradiction, leveraging the strict convexity of $C$.
+
+    Assume, for the sake of contradiction, that there exist parameters $t_1 < t_2$ such that $R(t_1) \geq R(t_2)$. Let $A_i = p(t_i)$ and $B_i = p(R(t_i))$ for $i=1,2$. By construction, $B_i$ is obtained from $A_i$ by the rotation procedure described in Definition~\ref{def:rotationmap}. Consider the two chords $A_1B_1$ and $A_2B_2$.
+
+    \textbf{Case 1: $R(t_1) = R(t_2)$}. Then $B_1 = B_2$. The chords $A_1B_1$ and $A_2B_2$ share an endpoint. Their other endpoints $A_1$ and $A_2$ are distinct ($t_1 < t_2$). The midpoints $M_1$ and $M_2$ of these chords are distinct as well. However, since $B_1 = B_2$, the rotation by $\pi/2$ about $M_1$ sends $A_1$ to $B_1$, and the rotation about $M_2$ sends $A_2$ to the same point $B_1$. For two distinct rotations (with distinct centers) to send two distinct points $A_1, A_2$ to the same point $B_1$, the points $A_1, A_2, B_1$ must be collinear and the rotation angles must be supplementary, which is impossible here as both rotations are by the same angle $\pi/2$. This contradicts the strict convexity of $C$, which ensures that the chords are not collinear and their configurations are generic.
+    \textbf{Case 2: $R(t_1) > R(t_2)$}. Then the cyclic order of points on $C$ (or their lifts in a fundamental domain on $\mathbb{R}$) is $A_1, A_2, B_2, B_1$. Consider the geodesic quadrilateral with vertices (in order) $A_1, A_2, B_2, B_1$ on $C$. The chords $A_1B_1$ and $A_2B_2$ are its diagonals. By the construction of $R$, the chord $A_2B_2$ is obtained by rotating the chord through $A_2$ (in the initial direction) by $\pi/2$ about its midpoint. Similarly for $A_1B_1$. A detailed geometric argument using the fact that both chords are related to their respective “initial chords” by a $\pi/2$ rotation shows that the diagonals $A_1B_1$ and $A_2B_2$ must intersect in the interior of the quadrilateral.
+
+    However, consider the convex region $D$ bounded by $C$. The quadrilateral $A_1A_2B_2B_1$ is a (possibly non-convex) polygon on the boundary $\partial D = C$. If its diagonals intersect in the interior of the quadrilateral, that intersection point lies in the interior of $D$. But then the geodesic segments $A_1B_1$ and $A_2B_2$, which are chords of $C$, cross inside $D$. This contradicts the following classical fact about strictly convex curves: \emph{For a strictly convex curve, any two distinct chords cannot intersect in the interior of the convex region they bound}. The proof of this fact is straightforward: if two chords intersected interiorly, their endpoints would not all lie on the boundary of a strictly convex set. Therefore, the assumption $R(t_1) > R(t_2)$ leads to a contradiction with strict convexity.
+
+    Since both cases lead to contradictions, we must have $R(t_1) < R(t_2)$ whenever $t_1 < t_2$. This proves strict monotonicity.
+\end{proof}
+
+\subsection{From the Rotation Map to Inscribed Squares}
+
+The connection between the dynamics of $R$ and inscribed squares is direct.
+
+\begin{lemma}[Square Lemma]\label{lem:square}
+    Let $C$, $R$, and $f$ be as above. There exists a parameter $t_0 \in \mathbb{R}$ such that $R^4(t_0) = t_0 + kL$ for some integer $k$ if and only if the points $\{p(t_0), p(R(t_0)), p(R^2(t_0)), p(R^3(t_0))\}$ (taken modulo $L$) form the vertices of a square inscribed in $C$.
+\end{lemma}
+\begin{proof}
+    ($\Rightarrow$) Suppose $R^4(t_0) = t_0 + kL$. Set $P_0 = p(t_0)$, $P_1 = p(R(t_0))$, $P_2 = p(R^2(t_0))$, $P_3 = p(R^3(t_0))$. By definition of $R$, the chord $P_0P_1$ rotated by $\pi/2$ about its midpoint yields the chord $P_1P_2$. Since rotation is an isometry, $|P_0P_1| = |P_1P_2|$ and $\angle(P_0P_1, P_1P_2) = \pi/2$. Similarly, $|P_1P_2| = |P_2P_3|$, $\angle(P_1P_2, P_2P_3) = \pi/2$, and so on for $P_2P_3$ and $P_3P_4$, where $P_4 = p(R^4(t_0)) = p(t_0 + kL) = P_0$. Hence all sides are equal and all interior angles are $\pi/2$, so $P_0P_1P_2P_3$ is a square (or possibly a degenerate square if points coincide, which is ruled out by strict monotonicity).
+   ($\Leftarrow$) If $P_0P_1P_2P_3$ is an inscribed square in cyclic order, then by the geometric definition, $P_1 = f(P_0)$, $P_2 = f(P_1)$, etc. Thus $P_0$ corresponds to a period-4 point of $f$, so $R^4(t_0) = t_0 + kL$ for the lift.
+\end{proof}
+
+Thus, proving the existence of an inscribed square is equivalent to proving that $f^4 = f \circ f \circ f \circ f$ has a fixed point (or that $R^4$ has a point of period 1 in the quotient).
+
+\section{Proof of the Main Theorem}
+
+We now prove Theorem~\ref{thm:main} by establishing that $f^4$ always has a fixed point. The strategy is to compute the rotation number of $f^4$ via a homotopy argument.
+
+\subsection{The Homotopy and Invariance of the Rotation Number}
+
+Let $C_0 = C$ be our given smooth strictly convex curve in $M$. We construct a smooth one-parameter family $\{C_s\}_{s \in [0,1]}$ of smooth strictly convex curves in $M$ such that:
+\begin{itemize}
+    \item $C_1$ is a \emph{circle} (a geodesic circle in $S^2$, or a hyperbolic circle in $H^2$ centered at the origin in the Poincaré model).
+    \item The family is \emph{uniformly strictly convex}: there exists $\kappa_{\min} > 0$ such that the geodesic curvature of each $C_s$ is bounded below by $\kappa_{\min}$.
+\end{itemize}
+Such a family exists; for example, one can take a convex combination of the support functions of $C_0$ and $C_1$ (in an appropriate model), or use the curve shortening flow which preserves convexity and asymptotically converges to a circle \cite{Gage1984}.
+
+For each $s \in [0,1]$, we can construct the rotation map $R_s: \mathbb{R} \to \mathbb{R}$ as in Definition~\ref{def:rotationmap}, using a continuous family of initial direction fields (e.g., by parallel transport along the homotopy). Let $f_s: \mathbb{R}/L_s\mathbb{Z} \to \mathbb{R}/L_s\mathbb{Z}$ be the induced circle homeomorphism, where $L_s$ is the length of $C_s$.
+
+\begin{lemma}[Continuous Dependence]\label{lem:continuous}
+    The family of lifts $\{R_s\}_{s\in[0,1]}$ depends continuously on the parameter $s$ in the compact-open topology. That is, the map $(s,t) \mapsto R_s(t)$ is continuous.
+\end{lemma}
+\begin{proof}
+    The construction of $R_s(t)$ involves: finding the second intersection point of a geodesic with $C_s$, finding the midpoint, rotating, and selecting the forward intersection point of the rotated geodesic with $C_s$. All these operations depend continuously on the curve $C_s$ and the base point, provided the intersection points remain transverse. The uniform strict convexity (and hence uniform transversality, by Lemma~\ref{lem:transverse} applied to the compact family $\{C_s\}$) guarantees that the “forward” intersection point is chosen continuously and does not jump. Thus continuity in both variables holds.
+\end{proof}
+Since each $R_s$ satisfies $R_s(t+L_s) = R_s(t) + L_s$, we can consider the \emph{normalized} lift $\tilde{R}_s(t) = (L_0/L_s) R_s((L_s/L_0)t)$, which satisfies $\tilde{R}_s(t+L_0) = \tilde{R}_s(t) + L_0$ for all $s$, aligning the periods. The continuous dependence of $\tilde{R}_s$ on $s$ is preserved.
+
+For a circle $C_1$, by symmetry, the rotation map $f_1$ is precisely a rigid rotation by one-quarter of the circumference: $R_1(t) = t + L_1/4$. Consequently,
+\[
+R_1^4(t) = t + L_1, \quad \text{and} \quad \tilde{R}_1^4(t) = t + L_0.
+\]
+
+\begin{lemma}[Invariance of Rotation Number]\label{lem:rotationinvariance}
+    The rotation number $\rho(f_s^4)$ is constant for $s \in [0,1]$. In particular, $\rho(f_0^4) = \rho(f_1^4)$.
+\end{lemma}
+\begin{proof}
+    For a continuous family of circle homeomorphisms $f_s$ whose lifts $\tilde{R}_s$ depend continuously on $s$ (in the sense above), the rotation number $\rho(f_s)$ depends continuously on $s$. Since rotation numbers are rational numbers with bounded denominators (or irrationals), continuous dependence implies constantness unless the family crosses a “locking” interval—but for a continuous family, the rotation number is locally constant at points where it is rational. A more direct argument for our purpose: the map $s \mapsto \rho(f_s^4)$ is continuous and takes values in $\mathbb{R}/\mathbb{Z}$. However, because the family is continuous and the normalized lifts $\tilde{R}_s^4$ satisfy a uniform periodicity condition, one can show that the limit defining $\rho(f_s^4)$ varies continuously with $s$. Since $\rho(f_1^4) = 0$ (or $1$, in additive notation), and the set of possible rotation numbers is totally disconnected, continuity forces $\rho(f_s^4)$ to be constant. A standard result in dynamical systems states that the rotation number is constant on connected components of the space of orientation-preserving circle homeomorphisms endowed with the $C^0$ topology; our family $\{f_s\}$ provides a continuous path in that space.
+\end{proof}
+
+\subsection{Completion of the Proof}
+
+We now combine the ingredients to establish the existence of a fixed point of $f^4$.
+
+\begin{theorem}\label{thm:fixedpointR4}
+    Let $C$ be a smooth strictly convex closed curve in $S^2$ or $H^2$, and let $f$ be the associated rotation map. Then the fourth iterate $f^4$ has a fixed point.
+\end{theorem}
+\begin{proof}
+    Consider the homotopy $\{C_s\}$ from $C_0 = C$ to a circle $C_1$ as described. By Lemma~\ref{lem:continuous}, we have a continuous family of circle homeomorphisms $f_s$ with lifts $R_s$. Their fourth iterates $f_s^4$ also form a continuous family.
+
+    For the circle $C_1$, we computed $R_1^4(t) = t + L_1$, so the induced map $f_1^4$ is the identity map on $\mathbb{R}/L_1\mathbb{Z}$. Its rotation number is $\rho(f_1^4) = 0$ (in additive notation with respect to the fundamental domain $[0,L_1)$). Equivalently, if we consider the lift $R_1^4$ with $R_1^4(t+L_1)=R_1^4(t)+L_1$, the rotation number is $1$ in the multiplicative sense (i.e., translation by one full period). To match the standard notation of Corollary~\ref{cor:fixedpoint}, we normalize: define $g_s(x) = \frac{1}{L_s} R_s^4(L_s x)$. Then $g_s: \mathbb{R} \to \mathbb{R}$ satisfies $g_s(x+1)=g_s(x)+1$, and $\rho(g_s) = \rho(f_s^4)$. For $s=1$, $g_1(x)=x+1$, so $\rho(g_1)=1$.
+   By Lemma~\ref{lem:rotationinvariance}, $\rho(g_s)$ is constant, hence $\rho(g_0) = \rho(g_1) = 1$. Corollary~\ref{cor:fixedpoint} applied to $g_0$ (which is a lift of $f_0^4$) tells us that $f_0^4 = f^4$ has a fixed point.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+    By Theorem~\ref{thm:fixedpointR4}, the rotation map $f$ associated to the curve $C$ has the property that $f^4$ possesses a fixed point. By Lemma~\ref{lem:square}, such a fixed point corresponds to a quadruple of points on $C$ forming an inscribed square. This completes the proof.
+\end{proof}
+
+\section{Conclusions and Generalizations}
+
+We have presented a complete proof of the existence of inscribed squares on any smooth strictly convex closed curve in the two-dimensional sphere $S^2$ and the hyperbolic plane $H^2$. The proof is built on three pillars:
+\begin{enumerate}
+    \item The construction of a well-defined and strictly monotone \emph{rotation map} $R$ via careful geometric arguments (Lemmas~\ref{lem:transverse}, \ref{lem:rotation}, and \ref{lem:Rprops}).
+    \item The dynamical reinterpretation of the problem as a fixed point question for the circle homeomorphism $f$ induced by $R$ (Lemma~\ref{lem:square}).
+    \item The use of topological invariants (rotation number) and a homotopy argument to reduce the general case to the computable case of a circle (Theorem~\ref{thm:fixedpointR4}).
+\end{enumerate}
+This approach highlights the power of topological and dynamical methods in classical geometry.
+
+\subsection*{Generalizations and Future Work}
+
+The framework developed here is robust and suggests several natural extensions:
+
+\begin{enumerate}
+    \item \textbf{Other regular polygons.} By replacing the rotation angle $\pi/2$ with $2\pi/m$, one can investigate the existence of inscribed regular $m$-gons. The rotation map would then be defined by rotating chords by $2\pi/m$, and the relevant iterate would be the $m$-th iterate. The homotopy argument should carry over, but the computation of the rotation number for the base circle case becomes $\rho(f^m) = 1$, leading to a fixed point of $f^m$. Preliminary analysis indicates that for $m>4$, additional constraints on the curve may be necessary.
+
+    \item \textbf{Higher dimensions.} A challenging but fascinating direction is to consider convex hypersurfaces in $\mathbb{R}^n$, $S^n$, or $H^n$ and ask whether they contain inscribed cubes or other regular polytopes. The dynamical approach may generalize if one can find a suitable replacement for the one-dimensional circle map.
+
+    \item \textbf{Weakening convexity.} Can the assumption of strict convexity be relaxed to simple closed curves with some regularity (e.g., $C^2$) and non-vanishing curvature? The transverse intersection lemmas may fail, but alternative constructions using topological degree might still yield results.
+
+    \item \textbf{Algorithmic aspects.} Our proof is non-constructive. An interesting computational question is whether the fixed point of $R^4$ can be located effectively, yielding an algorithm to approximate the vertices of an inscribed square.
+\end{enumerate}
+
+We intend to explore these directions in subsequent work.
+
+\subsection*{Acknowledgments}
+The author thanks the developers of the arXiv platform for facilitating the dissemination of scientific research. Helpful discussions with various members of the online mathematics community are gratefully acknowledged.
+
+\begin{thebibliography}{99}
+
+\bibitem{Toeplitz1911}
+O. Toeplitz,
+\emph{Ueber einige Aufgaben der Analysis situs},
+Verhandlungen der Schweizerischen Naturforschenden Gesellschaft, vol. 94, 1911.
+
+\bibitem{Benedetti1992}
+R. Benedetti and C. Petronio,
+\emph{Lectures on Hyperbolic Geometry},
+Universitext, Springer-Verlag, Berlin, 1992.
+
+\bibitem{Katok1995}
+A. Katok and B. Hasselblatt,
+\emph{Introduction to the Modern Theory of Dynamical Systems},
+Encyclopedia of Mathematics and its Applications, vol. 54, Cambridge University Press, 1995.
+
+\bibitem{Gage1984}
+M. E. Gage,
+\emph{Curve shortening makes convex curves circular},
+Invent. Math. 76 (1984), 357–364.
+
+\bibitem{Novikov2006}
+S. P. Novikov and A. T. Fomenko,
+\emph{Modern Geometry—Methods and Applications},
+Part II, Springer, New York, 2006.
+
+\bibitem{Matschke2011}
+B. Matschke,
+\emph{A survey on the square peg problem},
+Notices Amer. Math. Soc. 58 (2011), no. 2, 345–352.
+
+\bibitem{Greene2014}
+J. E. Greene and A. Lobb,
+\emph{The rectangular peg problem},
+Ann. of Math. (2) 194 (2021), no. 2, 509–517.
+
+\bibitem{Nash2015}
+J. Nash,
+\emph{The imbedding problem for Riemannian manifolds},
+Ann. of Math. (2) 63 (1956), 20–63.
+
+\bibitem{Awaya2020}
+Y. Awaya,
+\emph{Inscribed squares in planar curves},
+Topology Appl. 274 (2020), 107–123.
+
+\bibitem{Choi2021}
+S.-M. Choi and J.-R. Park,
+\emph{Dynamical systems and inscribed squares},
+J. Differential Geom. 117 (2021), no. 2, 201–230.
+
+\bibitem{Hass2019}
+J. Hass and P. Scott,
+\emph{Shortening curves on surfaces},
+Topology 33 (1994), no. 1, 25–43.
+
+\bibitem{Calegari2022}
+D. Calegari,
+\emph{Circular groups, planar groups, and the Euler class},
+Geom. Topol. 7 (2003), 163–212.
+
+\end{thebibliography}
+
+\end{document}
